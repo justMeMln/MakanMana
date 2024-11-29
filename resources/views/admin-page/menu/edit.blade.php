@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
     <h1>Edit Menu</h1>
-    <form action="{{ route('menu.update', $menu->id_menu) }}" method="POST">
+    <form action="{{ route('admin-page.menu.update', $menu->id_menu) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -27,8 +27,15 @@
             <input type="url" name="url_gambar_menu" class="form-control" value="{{ $menu->url_gambar_menu }}" required>
         </div>
         <div class="mb-3">
-            <label for="id_restoran" class="form-label">ID Restoran</label>
-            <input type="number" name="id_restoran" class="form-control" value="{{ $menu->id_restoran }}" required>
+            <label for="id_restoran" class="form-label">Restoran</label>
+            <select name="id_restoran" class="form-select" required>
+                <option value="" disabled>Pilih Restoran</option>
+                @foreach($restorans as $restoran)
+                    <option value="{{ $restoran->id_restoran }}" {{ $menu->id_restoran == $restoran->id_restoran ? 'selected' : '' }}>
+                        {{ $restoran->nama_restoran }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <button type="submit" class="btn btn-success">Update</button>
     </form>

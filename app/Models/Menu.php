@@ -24,6 +24,7 @@ class Menu extends Model
     // Relasi ke tabel Restoran
     public function restoran()
     {
-        return $this->belongsTo(Restoran::class, 'id_restoran');
+        return $this->belongsTo(Restoran::class, 'id_restoran', 'id_restoran'); // Disesuaikan dengan kolom primary key tabel restoran
     }
+
 }

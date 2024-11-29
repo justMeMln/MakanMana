@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
@@ -10,6 +10,6 @@
             <p class="card-text">Preferensi Menu: {{ $user->preferensi_menu }}</p>
         </div>
     </div>
-    <a href="{{ route('user.index') }}" class="btn btn-primary mt-3">Kembali</a>
+    <a href="{{ route('admin-page.user.index') }}" class="btn btn-primary mt-3">Kembali</a>
 </div>
 @endsection

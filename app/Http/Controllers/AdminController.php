@@ -10,12 +10,12 @@ class AdminController extends Controller
     public function index()
     {
         $admins = Admin::all();
-        return view('admin.index', compact('admins'));
+        return view('admin-page.admin.index', compact('admins'));
     }
 
     public function create()
     {
-        return view('admin.create');
+        return view('admin-page.admin.create');
     }
 
     public function store(Request $request)
@@ -28,19 +28,19 @@ class AdminController extends Controller
         $validated['password'] = md5($validated['password']); // Enkripsi password
         Admin::create($validated);
 
-        return redirect()->route('admin.index')->with('success', 'Admin berhasil ditambahkan');
+        return redirect()->route('admin-page.admin.index')->with('success', 'Admin berhasil ditambahkan');
     }
 
     public function show($username)
     {
         $admin = Admin::findOrFail($username);
-        return view('admin.show', compact('admin'));
+        return view('admin-page.admin.show', compact('admin'));
     }
 
     public function edit($username)
     {
         $admin = Admin::findOrFail($username);
-        return view('admin.edit', compact('admin'));
+        return view('admin-page.admin.edit', compact('admin'));
     }
 
     public function update(Request $request, $username)
@@ -53,7 +53,7 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($username);
         $admin->update($validated);
 
-        return redirect()->route('admin.index')->with('success', 'Admin berhasil diperbarui');
+        return redirect()->route('admin-page.admin.index')->with('success', 'Admin berhasil diperbarui');
     }
 
     public function destroy($username)
@@ -61,6 +61,6 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($username);
         $admin->delete();
 
-        return redirect()->route('admin.index')->with('success', 'Admin berhasil dihapus');
+        return redirect()->route('admin-page.admin.index')->with('success', 'Admin berhasil dihapus');
     }
 }

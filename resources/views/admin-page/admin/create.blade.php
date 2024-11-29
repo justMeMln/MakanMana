@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
     <h1>Tambah Admin</h1>
-    <form action="{{ route('admin.store') }}" method="POST">
+    <form action="{{ route('admin-page.admin.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>

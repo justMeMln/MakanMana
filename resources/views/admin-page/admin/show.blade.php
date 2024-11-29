@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
@@ -8,6 +8,6 @@
             <h5 class="card-title">Username: {{ $admin->username }}</h5>
         </div>
     </div>
-    <a href="{{ route('admin.index') }}" class="btn btn-primary mt-3">Kembali</a>
+    <a href="{{ route('admin-page.admin.index') }}" class="btn btn-primary mt-3">Kembali</a>
 </div>
 @endsection

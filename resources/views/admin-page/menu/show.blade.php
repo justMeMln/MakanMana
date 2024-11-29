@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
@@ -12,6 +12,6 @@
             <img src="{{ $menu->url_gambar_menu }}" class="img-fluid" alt="Gambar Menu">
         </div>
     </div>
-    <a href="{{ route('menu.index') }}" class="btn btn-primary mt-3">Kembali</a>
+    <a href="{{ route('admin-page.menu.index') }}" class="btn btn-primary mt-3">Kembali</a>
 </div>
 @endsection

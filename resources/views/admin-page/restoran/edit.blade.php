@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
     <h1>Edit Restoran</h1>
-    <form action="{{ route('restoran.update', $restoran->id_restoran) }}" method="POST">
+    <form action="{{ route('admin-page.restoran.update', $restoran->id_restoran) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

@@ -1,0 +1,5 @@
+.menu-img {
+    height: 200px; /* Atur tinggi sesuai kebutuhan */
+    object-fit: cover; /* Menjaga proporsi gambar */
+    width: 100%; /* Pastikan gambar memenuhi lebar card */
+}

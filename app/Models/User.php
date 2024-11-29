@@ -2,32 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory;
-
-    protected $table = 'user'; // Nama tabel
-    protected $primaryKey = 'username'; // Primary key
-    public $incrementing = false; // Karena primary key bukan integer
-    public $timestamps = false;
+    protected $table = 'user'; // Nama tabel sesuai dengan SQL
+    protected $primaryKey = 'id_user'; // Primary key
+    public $timestamps = true;
 
     protected $fillable = [
+        'nama_lengkap',
         'username',
         'password',
-        'nama_lengkap',
         'preferensi_menu',
     ];
 
     protected $hidden = [
-        'password', // Menyembunyikan password dalam serialisasi JSON
+        'password',
     ];
-
-    // Encrypt password secara otomatis
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = md5($value);
-    }
 }

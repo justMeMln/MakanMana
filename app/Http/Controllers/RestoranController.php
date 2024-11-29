@@ -10,12 +10,12 @@ class RestoranController extends Controller
     public function index()
     {
         $restorans = Restoran::all();
-        return view('restoran.index', compact('restorans'));
+        return view('admin-page.restoran.index', compact('restorans'));
     }
 
     public function create()
     {
-        return view('restoran.create');
+        return view('admin-page.restoran.create');
     }
 
     public function store(Request $request)
@@ -27,19 +27,20 @@ class RestoranController extends Controller
 
         Restoran::create($validated);
 
-        return redirect()->route('restoran.index')->with('success', 'Restoran berhasil ditambahkan');
+        return redirect()->route('admin-page.restoran.index')->with('success', 'Restoran berhasil ditambahkan');
     }
 
     public function show($id)
     {
-        $restoran = Restoran::findOrFail($id);
-        return view('restoran.show', compact('restoran'));
+        // Ambil restoran dan menu yang terkait
+        $restoran = Restoran::with('menus')->findOrFail($id);
+        return view('admin-page.restoran.show', compact('restoran'));
     }
 
     public function edit($id)
     {
         $restoran = Restoran::findOrFail($id);
-        return view('restoran.edit', compact('restoran'));
+        return view('admin-page.restoran.edit', compact('restoran'));
     }
 
     public function update(Request $request, $id)
@@ -52,7 +53,7 @@ class RestoranController extends Controller
         $restoran = Restoran::findOrFail($id);
         $restoran->update($validated);
 
-        return redirect()->route('restoran.index')->with('success', 'Restoran berhasil diperbarui');
+        return redirect()->route('admin-page.restoran.index')->with('success', 'Restoran berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -60,6 +61,6 @@ class RestoranController extends Controller
         $restoran = Restoran::findOrFail($id);
         $restoran->delete();
 
-        return redirect()->route('restoran.index')->with('success', 'Restoran berhasil dihapus');
+        return redirect()->route('admin-page.restoran.index')->with('success', 'Restoran berhasil dihapus');
     }
 }

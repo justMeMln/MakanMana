@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
 
 @section('content')
 <div class="container">
     <h1>Edit Pengguna</h1>
-    <form action="{{ route('user.update', $user->username) }}" method="POST">
+    <form action="{{ route('admin-page.user.update', $user->username) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

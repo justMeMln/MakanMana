@@ -1,9 +1,10 @@
-@extends('layouts.app')
+@extends('admin-page.layouts.app')
+
 
 @section('content')
 <div class="container">
     <h1>Daftar Menu</h1>
-    <a href="{{ route('menu.create') }}" class="btn btn-primary mb-3">Tambah Menu</a>
+    <a href="{{ route('admin-page.menu.create') }}" class="btn btn-primary mb-3">Tambah Menu</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -22,9 +23,9 @@
                 <td>{{ $menu->harga_menu }}</td>
                 <td>{{ $menu->kategori_menu }}</td>
                 <td>
-                    <a href="{{ route('menu.show', $menu->id_menu) }}" class="btn btn-info btn-sm">Detail</a>
-                    <a href="{{ route('menu.edit', $menu->id_menu) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('menu.destroy', $menu->id_menu) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('admin-page.menu.show', $menu->id_menu) }}" class="btn btn-info btn-sm">Detail</a>
+                    <a href="{{ route('admin-page.menu.edit', $menu->id_menu) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('admin-page.menu.destroy', $menu->id_menu) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
