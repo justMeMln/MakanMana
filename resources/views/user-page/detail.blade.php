@@ -6,7 +6,8 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ $menu->url_gambar_menu }}" class="img-fluid rounded" alt="{{ $menu->nama_menu }}">
+                <img src="{{ $menu->url_gambar_menu }}" class="img-fluid rounded" alt="{{ $menu->nama_menu }}"
+                    style="height: 500px; object-fit: cover; width: 100%;">
             </div>
             <div class="col-md-6">
                 <h1>{{ $menu->nama_menu }}</h1>

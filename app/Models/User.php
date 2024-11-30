@@ -8,13 +8,12 @@ class User extends Authenticatable
 {
     protected $table = 'user'; // Nama tabel sesuai dengan SQL
     protected $primaryKey = 'id_user'; // Primary key
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'nama_lengkap',
         'username',
         'password',
-        'preferensi_menu',
     ];
 
     protected $hidden = [

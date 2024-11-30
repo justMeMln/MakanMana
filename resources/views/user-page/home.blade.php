@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mt-4">
         @if (Auth::check())
-            <h1>Selamat Datang, {{ Auth::user()->nama_lengkap }}</h1>
+            <h1>Selamat Datang, {{ Auth::user()->nama_lengkap }}!</h1>
         @else
             <h1>Selamat Datang, Pengguna</h1>
             <p>Silakan <a href="{{ route('user.login') }}">login</a> untuk menggunakan fitur lengkap.</p>

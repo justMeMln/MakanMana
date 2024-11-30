@@ -27,16 +27,6 @@ Route::prefix('admin')->middleware('auth')->name('admin-page.')->group(function 
         'destroy' => 'menu.destroy',
     ]);
 
-    // Resource routes untuk admin
-    Route::resource('admin', AdminController::class)->names([
-        'index' => 'admin.index',
-        'create' => 'admin.create',
-        'store' => 'admin.store',
-        'show' => 'admin.show',
-        'edit' => 'admin.edit',
-        'update' => 'admin.update',
-        'destroy' => 'admin.destroy',
-    ]);
 
     // Resource routes untuk restoran
     Route::resource('restoran', RestoranController::class)->names([

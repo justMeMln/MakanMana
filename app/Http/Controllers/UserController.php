@@ -10,23 +10,83 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function home()
-    {
-        $makananBerat = Menu::where('kategori_menu', 'Makanan Berat')->get();
-        $makananRingan = Menu::where('kategori_menu', 'Makanan Ringan')->get();
-        $minuman = Menu::where('kategori_menu', 'Minuman')->get();
-
-        return view('user-page.home', compact('makananBerat', 'makananRingan', 'minuman'));
-    }
-
+    // Menampilkan semua data user
     public function index()
     {
-        // Ambil semua pengguna dari database
-        $users = User::all();
-
-        // Kirim data pengguna ke view
+        $users = User::all(); // Ambil semua data user dari tabel 'user'
         return view('admin-page.user.index', compact('users'));
     }
+
+    // Menampilkan halaman tambah user
+    public function create()
+    {
+        return view('admin-page.user.create');
+    }
+
+    // Menyimpan data user baru
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:user,username',
+            'password' => 'required|string|min:6',
+        ]);
+
+        // Hash password sebelum menyimpan
+        $validated['password'] = bcrypt($validated['password']);
+
+        User::create($validated);
+
+        return redirect()->route('admin-page.user.index')->with('success', 'User berhasil ditambahkan');
+    }
+
+    // Menampilkan detail user berdasarkan ID
+    public function show($id_menu)
+    {
+        // Cari pengguna berdasarkan id_menu
+        $user = User::findOrFail($id_menu);
+        return view('admin-page.user.show', compact('user'));
+    }
+
+    public function edit($id_menu)
+    {
+        // Cari pengguna berdasarkan id_menu
+        $user = User::findOrFail($id_menu);
+        return view('admin-page.user.edit', compact('user'));
+    }
+
+    public function destroy($id_menu)
+    {
+        // Cari pengguna berdasarkan id_menu
+        $user = User::findOrFail($id_menu);
+        $user->delete();
+        return redirect()->route('admin-page.user.index')->with('success', 'Pengguna berhasil dihapus');
+    }
+
+    // Memperbarui data user
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:user,username,' . $id,
+            'password' => 'nullable|string|min:6', // Password optional saat edit
+        ]);
+
+        $user = User::findOrFail($id);
+
+        // Hanya hash password jika diisi
+        if ($request->filled('password')) {
+            $validated['password'] = bcrypt($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return redirect()->route('admin-page.user.index')->with('success', 'User berhasil diperbarui');
+    }
+
+    // Menghapus user berdasarkan ID
 
     public function showMenu($id)
     {
@@ -37,12 +97,6 @@ class UserController extends Controller
         return view('user-page.detail', compact('menu'));
     }
 
-
-    public function about()
-    {
-        return view('user-page.about');
-    }
-
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -51,10 +105,10 @@ class UserController extends Controller
     }
 
     public function profile()
-{
-    $user = Auth::user(); // Dapatkan data pengguna yang sedang login
-    return view('user-page.profile', compact('user'));
-}
+    {
+        $user = Auth::user(); // Dapatkan data pengguna yang sedang login
+        return view('user-page.profile', compact('user'));
+    }
 
     public function login()
     {
@@ -93,12 +147,13 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Cek jika username mengandung "admin"
+            // Simpan waktu login awal
+            session(['last_activity' => now()->timestamp]);
+
             if (str_contains(strtolower($request->username), 'admin')) {
                 return redirect()->route('admin-page.home'); // Redirect ke halaman admin
             }
 
-            // Redirect ke halaman user biasa
             return redirect()->route('user.home');
         }
 
