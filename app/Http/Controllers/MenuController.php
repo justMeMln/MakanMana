@@ -23,7 +23,7 @@ class MenuController extends Controller
 
     public function index()
     {
-        $menus = Menu::with('restoran')->paginate(10); // Pagination 10 data per halaman
+        $menus = Menu::with('restoran')->paginate(50); // Pagination 10 data per halaman
         return view('admin-page.menu.index', compact('menus'));
     }
 
@@ -90,8 +90,5 @@ class MenuController extends Controller
 
         return redirect()->route('admin-page.menu.index')->with('success', 'Menu berhasil dihapus!');
     }
-
-
-
 
 }
