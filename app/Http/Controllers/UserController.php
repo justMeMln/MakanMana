@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function home()
+    {
+        $makananBerat = Menu::where('kategori_menu', 'Makanan Berat')->get();
+        $makananRingan = Menu::where('kategori_menu', 'Makanan Ringan')->get();
+        $minuman = Menu::where('kategori_menu', 'Minuman')->get();
+
+        return view('user-page.home', compact('makananBerat', 'makananRingan', 'minuman'));
+    }
+
     // Menampilkan semua data user
     public function index()
     {
@@ -173,5 +182,3 @@ class UserController extends Controller
 
 
 }
-
-
